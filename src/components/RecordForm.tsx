@@ -30,7 +30,7 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
   useEffect(() => {
     const dialog = dialogRef.current
     dialog?.showModal()
-    dialog?.focus()
+    setTimeout(() => dialog?.focus(), 0)
   }, [])
 
   function handleBackdropClick(e: React.MouseEvent<HTMLDialogElement>) {
