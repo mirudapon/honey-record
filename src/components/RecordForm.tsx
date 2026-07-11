@@ -15,7 +15,7 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   const [time, setTime] = useState(
-    editTarget?.time.slice(0, 16) ?? new Date().toISOString().slice(0, 16),
+    editTarget?.time.slice(0, 10) ?? new Date().toISOString().slice(0, 10),
   )
   const [quantity, setQuantity] = useState(
     editTarget ? String(editTarget.quantity) : '',
@@ -52,7 +52,7 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
     e.preventDefault()
     if (!validate()) return
     const payload = {
-      time: new Date(time).toISOString(),
+      time,
       quantity: parseFloat(quantity),
       waterContent: parseFloat(waterContent),
       note: note.trim() || undefined,
@@ -100,9 +100,9 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
       <form onSubmit={handleSubmit} className="record-form">
         <h2>{isEdit ? '編輯記錄' : '新增記錄'}</h2>
         <label>
-          採收時間
+          採收日期
           <input
-            type="datetime-local"
+            type="date"
             value={time}
             onChange={e => setTime(e.target.value)}
             onFocus={() => setActiveField(null)}

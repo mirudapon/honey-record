@@ -37,13 +37,13 @@ export function FilterBar({ filters, onChange, onClear }: FilterBarProps) {
         <div className="filter-bar__panel">
           <div className="filter-bar__group">
             <label>
-              時間 從
+              日期 從
               <input
-                type="datetime-local"
-                value={filters.timeFrom?.slice(0, 16) ?? ''}
+                type="date"
+                value={filters.timeFrom?.slice(0, 10) ?? ''}
                 onChange={e =>
                   e.target.value
-                    ? update({ timeFrom: new Date(e.target.value).toISOString() })
+                    ? update({ timeFrom: e.target.value })
                     : clearField('timeFrom')
                 }
               />
@@ -51,11 +51,11 @@ export function FilterBar({ filters, onChange, onClear }: FilterBarProps) {
             <label>
               至
               <input
-                type="datetime-local"
-                value={filters.timeTo?.slice(0, 16) ?? ''}
+                type="date"
+                value={filters.timeTo?.slice(0, 10) ?? ''}
                 onChange={e =>
                   e.target.value
-                    ? update({ timeTo: new Date(e.target.value).toISOString() })
+                    ? update({ timeTo: e.target.value })
                     : clearField('timeTo')
                 }
               />

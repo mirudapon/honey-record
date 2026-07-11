@@ -13,21 +13,13 @@ export function RecordItem({ record, onEdit, onDelete }: RecordItemProps) {
     }
   }
 
-  const date = new Date(record.time).toLocaleDateString('zh-TW', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  })
-  const time = new Date(record.time).toLocaleTimeString('zh-TW', {
-    hour: '2-digit',
-    minute: '2-digit',
-  })
+  const [year, month, day] = record.time.slice(0, 10).split('-')
+  const displayDate = `${year}/${month}/${day}`
 
   return (
     <li className="record-item" onClick={onEdit}>
       <div className="record-item__header">
-        <span className="record-item__date">{date}</span>
-        <span className="record-item__time">{time}</span>
+        <span className="record-item__date">{displayDate}</span>
         <button
           className="record-item__delete"
           onClick={e => { e.stopPropagation(); handleDelete() }}
