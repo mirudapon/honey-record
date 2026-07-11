@@ -7,17 +7,13 @@ const BUTTONS = [
   ['7', '8', '9'],
   ['4', '5', '6'],
   ['1', '2', '3'],
-  ['C', '0', '⌫'],
+  ['C', '0', '.'],
 ]
 
 export function NumPad({ value, onChange }: NumPadProps) {
   function press(key: string) {
     if (key === 'C') {
       onChange('')
-      return
-    }
-    if (key === '⌫') {
-      onChange(value.slice(0, -1))
       return
     }
     if (key === '.' && value.includes('.')) return
@@ -41,7 +37,7 @@ export function NumPad({ value, onChange }: NumPadProps) {
             <button
               key={key}
               type="button"
-              className={`numpad__key${key === 'C' ? ' numpad__key--clear' : ''}${key === '⌫' ? ' numpad__key--back' : ''}`}
+              className={`numpad__key${key === 'C' ? ' numpad__key--clear' : ''}`}
               onPointerDown={e => { e.preventDefault(); press(key) }}
             >
               {key}

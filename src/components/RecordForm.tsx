@@ -28,7 +28,9 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
   const [activeField, setActiveField] = useState<NumField | null>(null)
 
   useEffect(() => {
-    dialogRef.current?.showModal()
+    const dialog = dialogRef.current
+    dialog?.showModal()
+    dialog?.focus()
   }, [])
 
   function handleBackdropClick(e: React.MouseEvent<HTMLDialogElement>) {
