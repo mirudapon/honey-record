@@ -33,9 +33,6 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
     setTimeout(() => dialog?.focus(), 0)
   }, [])
 
-  function handleBackdropClick(e: React.MouseEvent<HTMLDialogElement>) {
-    if (e.target === dialogRef.current) onClose()
-  }
 
   function validate(): boolean {
     const errs: Record<string, string> = {}
@@ -96,7 +93,7 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
   }
 
   return (
-    <dialog ref={dialogRef} onClick={handleBackdropClick} className="record-form-dialog">
+    <dialog ref={dialogRef} className="record-form-dialog">
       <form onSubmit={handleSubmit} className="record-form">
         <h2>{isEdit ? '編輯記錄' : '新增記錄'}</h2>
         <label>
