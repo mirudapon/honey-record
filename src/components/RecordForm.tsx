@@ -1,11 +1,14 @@
 import { useRef, useEffect, useState } from 'react'
 import type { HarvestRecord } from '../types'
+import { NumPad } from './NumPad'
 
 interface RecordFormProps {
   editTarget: HarvestRecord | null
   onSave: (data: Omit<HarvestRecord, 'id'> | HarvestRecord) => void
   onClose: () => void
 }
+
+type NumField = 'quantity' | 'waterContent'
 
 export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
   const isEdit = editTarget !== null
@@ -22,6 +25,7 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
   )
   const [note, setNote] = useState(editTarget?.note ?? '')
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [activeField, setActiveField] = useState<NumField | null>(null)
 
   useEffect(() => {
     dialogRef.current?.showModal()
@@ -55,6 +59,40 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
     onClose()
   }
 
+  const numValues: Record<NumField, string> = { quantity, waterContent }
+  const numSetters: Record<NumField, (v: string) => void> = {
+    quantity: setQuantity,
+    waterContent: setWaterContent,
+  }
+
+  function NumInput({ field, label, placeholder }: { field: NumField; label: string; placeholder: string }) {
+    const active = activeField === field
+    return (
+      <div className="numfield">
+        <label className={active ? 'numfield__label--active' : ''}>
+          {label}
+          <input
+            type="text"
+            inputMode="none"
+            readOnly
+            value={numValues[field]}
+            placeholder={placeholder}
+            className={`numfield__input${active ? ' numfield__input--active' : ''}`}
+            onFocus={() => setActiveField(field)}
+            onClick={() => setActiveField(field)}
+          />
+          {errors[field] && <span className="error">{errors[field]}</span>}
+        </label>
+        {active && (
+          <NumPad
+            value={numValues[field]}
+            onChange={v => numSetters[field](v)}
+          />
+        )}
+      </div>
+    )
+  }
+
   return (
     <dialog ref={dialogRef} onClick={handleBackdropClick} className="record-form-dialog">
       <form onSubmit={handleSubmit} className="record-form">
@@ -65,40 +103,19 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
             type="datetime-local"
             value={time}
             onChange={e => setTime(e.target.value)}
+            onFocus={() => setActiveField(null)}
             required
           />
           {errors.time && <span className="error">{errors.time}</span>}
         </label>
-        <label>
-          數量（罐）
-          <input
-            type="number"
-            min="0.1"
-            step="0.1"
-            value={quantity}
-            onChange={e => setQuantity(e.target.value)}
-            required
-          />
-          {errors.quantity && <span className="error">{errors.quantity}</span>}
-        </label>
-        <label>
-          含水量（%）
-          <input
-            type="number"
-            min="0"
-            max="100"
-            step="0.1"
-            value={waterContent}
-            onChange={e => setWaterContent(e.target.value)}
-            required
-          />
-          {errors.waterContent && <span className="error">{errors.waterContent}</span>}
-        </label>
+        <NumInput field="quantity" label="數量（罐）" placeholder="0" />
+        <NumInput field="waterContent" label="含水量（%）" placeholder="0.0" />
         <label>
           備註（選填）
           <textarea
             value={note}
             onChange={e => setNote(e.target.value)}
+            onFocus={() => setActiveField(null)}
             rows={3}
           />
         </label>
