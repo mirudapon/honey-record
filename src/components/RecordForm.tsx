@@ -28,9 +28,7 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
   const [activeField, setActiveField] = useState<NumField | null>(null)
 
   useEffect(() => {
-    const dialog = dialogRef.current
-    dialog?.showModal()
-    setTimeout(() => dialog?.focus(), 0)
+    dialogRef.current?.showModal()
   }, [])
 
 
@@ -94,6 +92,8 @@ export function RecordForm({ editTarget, onSave, onClose }: RecordFormProps) {
 
   return (
     <dialog ref={dialogRef} className="record-form-dialog">
+      {/* Invisible focus trap: captures browser's auto-focus so date input is not triggered */}
+      <span tabIndex={0} style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', opacity: 0 }} />
       <form onSubmit={handleSubmit} className="record-form">
         <h2>{isEdit ? '編輯記錄' : '新增記錄'}</h2>
         <label>
