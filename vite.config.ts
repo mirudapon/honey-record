@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/pwa-192.png', 'icons/pwa-512.png'],
       manifest: {
-        name: '蜂蜜採收記錄',
-        short_name: 'Bee Record',
+        name: 'Honey Record',
+        short_name: 'Honey Record',
         description: 'Personal beekeeper harvest tracking PWA',
         theme_color: '#f5a623',
         background_color: '#fffbea',

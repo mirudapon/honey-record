@@ -33,7 +33,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>蜂蜜採收記錄</h1>
+        <h1>Honey Record</h1>
       </header>
 
       <main className="app-main">
