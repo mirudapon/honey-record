@@ -1,1 +1,103 @@
-/* placeholder */
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: #fffbea; color: #333; }
+
+/* Layout */
+.app { display: flex; flex-direction: column; min-height: 100dvh; }
+.app-header { background: #f5a623; color: white; padding: 1rem; text-align: center; }
+.app-header h1 { font-size: 1.25rem; }
+.app-main { flex: 1; padding: 1rem; max-width: 640px; margin: 0 auto; width: 100%; }
+
+/* FAB */
+.fab {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  width: 3.5rem; height: 3.5rem; border-radius: 50%;
+  background: #f5a623; color: white; border: none;
+  font-size: 2rem; line-height: 1; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+}
+.fab:hover { background: #e09000; }
+
+/* Summary strip */
+.summary-strip {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  background: #fff8dc; padding: 0.75rem 1rem;
+  border-radius: 8px; margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* Record list */
+.record-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.record-list__empty { color: #999; text-align: center; padding: 2rem 0; }
+.record-item {
+  background: white; border-radius: 8px; padding: 0.75rem 1rem;
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  position: relative; flex-wrap: wrap;
+}
+.record-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+.record-item__main { flex: 1; display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.record-item__time { color: #666; font-size: 0.85rem; }
+.record-item__quantity { font-weight: 600; }
+.record-item__water { color: #3a7bd5; }
+.record-item__note { color: #888; font-size: 0.8rem; margin-top: 0.25rem; flex-basis: 100%; }
+.record-item__delete {
+  background: none; border: none; color: #c00;
+  cursor: pointer; font-size: 1rem; padding: 0.25rem; flex-shrink: 0;
+}
+
+/* Filter bar */
+.filter-bar { margin-bottom: 0.75rem; }
+.filter-bar__toggle {
+  background: white; border: 1px solid #ddd; border-radius: 8px;
+  padding: 0.5rem 1rem; cursor: pointer; width: 100%;
+  text-align: left; display: flex; justify-content: space-between; align-items: center;
+}
+.filter-bar--open .filter-bar__toggle { border-radius: 8px 8px 0 0; }
+.filter-bar__badge { color: #f5a623; margin-right: 0.25rem; }
+.filter-bar__panel {
+  background: white; border: 1px solid #ddd; border-top: none;
+  border-radius: 0 0 8px 8px; padding: 1rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+.filter-bar__group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.filter-bar__group label {
+  display: flex; flex-direction: column; font-size: 0.8rem;
+  font-weight: 500; flex: 1; min-width: 140px;
+}
+.filter-bar__group input {
+  margin-top: 0.25rem; padding: 0.4rem;
+  border: 1px solid #ccc; border-radius: 4px; font-size: 0.9rem;
+}
+.filter-bar__clear {
+  align-self: flex-start; background: none; border: 1px solid #c00;
+  color: #c00; border-radius: 4px; padding: 0.4rem 0.75rem; cursor: pointer;
+}
+
+/* Modal dialog */
+.record-form-dialog {
+  border: none; border-radius: 12px; padding: 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,.25); max-width: 420px; width: 90%;
+}
+.record-form-dialog::backdrop { background: rgba(0,0,0,.4); }
+.record-form { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.record-form h2 { margin-bottom: 0.25rem; }
+.record-form label {
+  display: flex; flex-direction: column;
+  font-size: 0.9rem; font-weight: 500;
+}
+.record-form input, .record-form textarea {
+  margin-top: 0.3rem; padding: 0.5rem;
+  border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;
+}
+.record-form textarea { resize: vertical; }
+.record-form .error { color: #c00; font-size: 0.8rem; margin-top: 0.2rem; }
+.form-actions { display: flex; justify-content: flex-end; gap: 0.75rem; }
+.form-actions button {
+  padding: 0.6rem 1.2rem; border-radius: 6px;
+  cursor: pointer; font-size: 0.95rem; border: none;
+}
+.form-actions button[type="button"] {
+  background: white; border: 1px solid #ccc; color: #333;
+}
+.form-actions button[type="submit"] { background: #f5a623; color: white; }
